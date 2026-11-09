@@ -1,0 +1,26 @@
+# Vendor services trimmed by develino-3 (2026-11-09).
+# Removed: ttyunos (root downloader from jm.ttyunos.com), preinstall, activation,
+# shell_data, upgrade, update_apps, wifi_rftest, agent.
+
+on early-boot
+    start sensorback
+
+on property:persist.sys.factory.calibstate=true
+    start calibration
+
+on property:vendor.jm.calibration.sensor=false
+    start calibration
+
+service sensorback /system/bin/sensorback.sh
+    oneshot
+    disabled
+    user root
+    group root
+    seclabel u:r:init:s0
+
+service calibration /system/bin/calibration.sh
+    oneshot
+    disabled
+    user root
+    group root
+    seclabel u:r:init:s0

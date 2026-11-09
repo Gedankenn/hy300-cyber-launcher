@@ -1,0 +1,11 @@
+# Boot-time performance profile (see /system/bin/tune.sh)
+
+service tune /system/bin/sh /system/bin/tune.sh
+    user root
+    group root
+    oneshot
+    disabled
+    seclabel u:r:init:s0
+
+on property:sys.boot_completed=1
+    start tune
